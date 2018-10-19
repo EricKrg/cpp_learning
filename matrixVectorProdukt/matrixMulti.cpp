@@ -61,7 +61,7 @@ int main(int argc, char** argv) {
     // time measure and iterations
     auto start = system_clock::now();
     for(int times=0;times<iterations;times++) {
-        matrix.clear();
+        matrix.clear(); // clear global matrix
         vector<int> vecResult = matrixProd(n, t);
         if(withPrint == 1){
             int o = 0;
@@ -79,3 +79,7 @@ int main(int argc, char** argv) {
     cout<<"elapsed time: " + std::to_string(elapsed_seconds)<<endl;
     return 0;
 }
+
+
+//cmake -H. -Bbuild
+//cmake --build build -- -j3
