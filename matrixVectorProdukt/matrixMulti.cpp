@@ -51,35 +51,37 @@ void prettyPrint(vector<int> v, string msg){
 //---------------------------------------------------------------------
 int main(int argc, char** argv) {
     // Interactive input
-    int n = strtol(argv[1],NULL,10);
-    int iterations = strtol(argv[2],NULL,10);
-    int withPrint = strtol(argv[3],NULL,10);; // with or without print
-    cout<< withPrint << " with print"<<endl;
-    cout<< n << " matrix size" << std::endl;
-    cout<< iterations << " iterations" << std::endl;
-    vector<int> t = createVector(n);
-    // time measure and iterations
-    auto start = system_clock::now();
-    for(int times=0;times<iterations;times++) {
-        matrix.clear(); // clear global matrix
-        vector<int> vecResult = matrixProd(n, t);
-        if(withPrint == 1){
-            int o = 0;
-            for(vector<int> row : matrix){
-                o++;
-                prettyPrint(row,"row Nr: " + to_string(o));
+    if(argc < 2){
+        cout<<"no arguments given"<<endl;
+        return 1;
+    } else {
+        int n = strtol(argv[1],NULL,10);
+        int iterations = strtol(argv[2],NULL,10);
+        int withPrint = strtol(argv[3],NULL,10);; // with or without print
+        cout<< withPrint << " with print"<<endl;
+        cout<< n << " matrix size" << std::endl;
+        cout<< iterations << " iterations" << std::endl;
+        vector<int> t = createVector(n);
+        // time measure and iterations
+        auto start = system_clock::now();
+        for(int times=0;times<iterations;times++) {
+            matrix.clear(); // clear global matrix
+            vector<int> vecResult = matrixProd(n, t);
+            if(withPrint == 1){
+                int o = 0;
+                for(vector<int> row : matrix){
+                    o++;
+                    prettyPrint(row,"row Nr: " + to_string(o));
+                }
+                prettyPrint(t,"vector");
+                prettyPrint(vecResult, "result vector");
             }
-            prettyPrint(t,"vector");
-            prettyPrint(vecResult, "result vector");
         }
+        auto end = system_clock::now();
+        const double elapsed_seconds = duration<double>(end - start).count();
+        // print time
+        cout<<"elapsed time: " + std::to_string(elapsed_seconds)<<endl;
+        return 0;
     }
-    auto end = system_clock::now();
-    const double elapsed_seconds = duration<double>(end - start).count();
-    // print time
-    cout<<"elapsed time: " + std::to_string(elapsed_seconds)<<endl;
-    return 0;
 }
 
-
-//cmake -H. -Bbuild
-//cmake --build build -- -j3
