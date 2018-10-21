@@ -21,14 +21,12 @@ int getRandom(){
 vector<int> createVector(int n){  // create a vector of size n with random oprands
     vector<int> vect;
     for(int i = 0; i<n;i++){
-        int r = getRandom();
-        vect.push_back(r);
+        vect.push_back(getRandom());
     }
     return vect;
 }
 vector<int> matrixProd(int n, vector<int> v) { // this fun calc. the vector product and writes the array
-    vector<int> result;
-    vector<int> r, row;
+    vector<int> result,r, row;
     for(int i = 0; i<n; i++) { // each row
         r.clear(); // reset r and row
         row.clear();
@@ -58,9 +56,7 @@ int main(int argc, char** argv) {
         int n = strtol(argv[1],NULL,10);
         int iterations = strtol(argv[2],NULL,10);
         int withPrint = strtol(argv[3],NULL,10);; // with or without print
-        cout<< withPrint << " with print"<<endl;
-        cout<< n << " matrix size" << std::endl;
-        cout<< iterations << " iterations" << std::endl;
+        cout<< withPrint << " with print "<< n << " matrix size " <<iterations<<" iterations"<<endl;
         vector<int> t = createVector(n);
         // time measure and iterations
         auto start = system_clock::now();
