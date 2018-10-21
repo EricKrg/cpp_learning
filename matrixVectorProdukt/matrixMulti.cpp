@@ -21,14 +21,12 @@ int getRandom(){
 vector<int> createVector(int n){  // create a vector of size n with random oprands
     vector<int> vect;
     for(int i = 0; i<n;i++){
-        int r = getRandom();
-        vect.push_back(r);
+        vect.push_back(getRandom());
     }
     return vect;
 }
 vector<int> matrixProd(int n, vector<int> v) { // this fun calc. the vector product and writes the array
-    vector<int> result;
-    vector<int> r, row;
+    vector<int> result,r, row;
     for(int i = 0; i<n; i++) { // each row
         r.clear(); // reset r and row
         row.clear();
@@ -51,31 +49,34 @@ void prettyPrint(vector<int> v, string msg){
 //---------------------------------------------------------------------
 int main(int argc, char** argv) {
     // Interactive input
-    int n = strtol(argv[1],NULL,10);
-    int iterations = strtol(argv[2],NULL,10);
-    int withPrint = strtol(argv[3],NULL,10);; // with or without print
-    cout<< withPrint << " with print"<<endl;
-    cout<< n << " matrix size" << std::endl;
-    cout<< iterations << " iterations" << std::endl;
-    vector<int> t = createVector(n);
-    // time measure and iterations
-    auto start = system_clock::now();
-    for(int times=0;times<iterations;times++) {
-        matrix.clear();
-        vector<int> vecResult = matrixProd(n, t);
-        if(withPrint == 1){
-            int o = 0;
-            for(vector<int> row : matrix){
-                o++;
-                prettyPrint(row,"row Nr: " + to_string(o));
+    if(argc !=  4){
+        cout<<"no/not enough arguments given"<<endl;
+        return 1;
+    } else {
+        int n = strtol(argv[1],NULL,10);
+        int iterations = strtol(argv[2],NULL,10);
+        int withPrint = strtol(argv[3],NULL,10);; // with or without print
+        cout<<withPrint<<" with print "<<n<< " matrix size "<<iterations<<" iterations"<<endl;
+        vector<int> t = createVector(n);
+        // time measure and iterations
+        auto start = system_clock::now();
+        for(int times=0;times<iterations;times++) {
+            matrix.clear(); // clear global matrix
+            vector<int> vecResult = matrixProd(n, t);
+            if(withPrint == 1){ // check if output should be printed
+                int o = 0;
+                for(vector<int> row : matrix){
+                    o++;
+                    prettyPrint(row,"row Nr: " + to_string(o));
+                }
+                prettyPrint(t,"vector");
+                prettyPrint(vecResult, "result vector");
             }
-            prettyPrint(t,"vector");
-            prettyPrint(vecResult, "result vector");
         }
+        const double elapsed_seconds = duration<double>(system_clock::now() - start).count();
+        // print time
+        cout<<"elapsed time: " + std::to_string(elapsed_seconds)<<endl;
+        return 0;
     }
-    auto end = system_clock::now();
-    const double elapsed_seconds = duration<double>(end - start).count();
-    // print time
-    cout<<"elapsed time: " + std::to_string(elapsed_seconds)<<endl;
-    return 0;
 }
+
