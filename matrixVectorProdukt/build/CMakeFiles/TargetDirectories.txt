@@ -1,3 +1,0 @@
-/home/eric/Documents/cpp_dev/matrixVectorProdukt/build/CMakeFiles/rebuild_cache.dir
-/home/eric/Documents/cpp_dev/matrixVectorProdukt/build/CMakeFiles/matrixMulti.dir
-/home/eric/Documents/cpp_dev/matrixVectorProdukt/build/CMakeFiles/edit_cache.dir
